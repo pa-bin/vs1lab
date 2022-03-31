@@ -21,14 +21,32 @@
         </nav>
     </header>
 
+
     <main class="main">
         <section class="main__tagging tagging">
             <h2>Tagging</h2>
 
             <!-- ############### VS1Lab 1a Form 1 Start -->
             <form id="tag-form" action="/tagging" method="post">
+               
+                <fieldset>
+                    <legend>Add a new Geotag</legend>
 
-                <!-- ... your code here ... -->
+                    <label for="latitude">Latitude:</label><br>
+                    <input type="text" id="latitude" name="latitude" placeholder="Coming Soon :( (maybe)"><br>
+
+                    <label for="longitude">Longitude:</label><br>
+                    <input type="text" id="longitude" name="longitude" placeholder="Coming Soon :( (maybe)"><br>
+
+                    <label for="name">Name:</label><br>
+                    <input type="text" id="name" name="name" placeholder="e.g. Berlin Mitte"><br>
+
+                    <label for="hashtag">Hashtag:</label><br>
+                    <input type="text" id="hashtag" name="hashtag"  placeholder="e.g. #ber"><br>                                      
+
+                    <input type="submit" value="Submit">
+                </fieldset>
+
 
             </form>
             <!-- ############### VS1Lab 1a Form 1 End -->
@@ -41,16 +59,27 @@
             <!-- ############### VS1Lab 1a Form 2 Start -->
             <form class="discovery__search" id="discoveryFilterForm" action="/discovery" method="post">
 
-                <!-- ... your code here ... -->
+                <fieldset>
+                    <legend>Search</legend>
 
+                    <label for="nameSearch">Search term or keywords:</label><br>
+                    <input type="text" id="nameSearch" name="nameSearch"><br>                                     
+
+                    <input type="submit" value="Search">
+                </fieldset>
             </form>
             <!-- ############### VS1Lab 1a Form 2 End -->
 
             <div class="discovery__wrapper">
                 <div class="discovery__taglist">
                     <ul class="discovery__results" id="discoveryResults">
+                        <fieldset>
                         <li>Castle (49.01379, 8.404435) #sight</li>
+                        </fieldset>
+
+                        <fieldset>
                         <li>IWI (49.01379, 8.390071) #edu</li>
+                        </fieldset>
                     </ul>
                 </div>
 
