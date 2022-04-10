@@ -110,28 +110,162 @@ a {
 /* ### TODO ### Styles for Header Component */
 
 /* ... your code here ... */
+.header {
+  flex-direction: row;
+  display:flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 2%;
+  background-color: lightgrey;
+}
+
+.header__image{
+  height:50px;
+  width:auto;
+}
 
 
 /* ### TODO ### Styles for Main Component */
 
 /* ... your code here ... */
+.main {
+  display:flex;
+  flex-direction: row;
+  margin:2%;
+  height:100%;
+}
+
+.main label{
+  margin:3px;
+}
+
+.main input[type=text], select, textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+.main fieldset{
+  display:flex;
+  flex-direction:column;
+  list-style-type:none;
+}
+
+.main__tagging{
+  margin:1%;
+}
+
+.main__tagging fieldset{
+  padding:2%;
+}
+
+.main__tagging fieldset legend{
+  font-weight: bold;
+}
+
+.main__tagging fieldset input[type=submit]{
+  background-color: lightgrey;
+  border: none;
+  color: black;
+  padding: 15px 30px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.main__discovery{
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  flex-wrap: wrap;
+  margin:1%;
+}
+
+.main__discovery fieldset input[type=submit]{
+  background-color: lightgrey;
+  border: none;
+  color: black;
+  padding: 15px 30px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.main__discovery .discovery__wrapper{
+  display: flex;
+  flex-direction:row;
+}
+
+
 
 
 /* ### TODO ### Styles for Tagging component */
 
 /* ... your code here ... */
 
-
 /* ### TODO ### Styles for Discovery component */
 
 /* ... your code here ... */
+.discovery__wrapper .discovery__map{
+  flex-direction: column;
+  display: flex;
+}
 
+.discovery__search fieldset{
+  padding:1%;
+}
+
+.discovery__search fieldset legend{
+  font-weight:bold;
+}
+
+.discovery__taglist{
+  min-width:50%;
+  margin-top: 2%;
+}
+.discovery__results{
+  margin:1% 1% 1% 0;
+  background-color: lightgrey;
+}
+
+.discovery__results fieldset{
+  padding:2%;
+}
+.discovery__map img{
+  max-width:200%;
+  min-width: 50%;
+  margin:5% 0 1% 1%;
+}
 
 /* ### TODO ### Styles for Footer Component */
 
 /* ... your code here ... */
-
+.footer{
+  padding: 2%;
+  background-color: lightgrey;
+  position:relative;
+  width:100%;
+}
 
 /* ### TODO ### Media Queries */
 
 /* ... your code here ... */
+@media only screen and (max-width: 600px) {
+  .header {
+    flex-direction: column;
+    width:100%;
+  }
+  .main{
+    flex-direction:column;
+    width:100%;
+  }
+  .main__discovery{
+    width:100%;
+  }
+  .main__tagging{
+    width: 100%;
+  }
+  .footer{
+    width: 100%;
+  }
+}
