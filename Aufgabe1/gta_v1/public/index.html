@@ -33,10 +33,10 @@
                     <legend>Add a new Geotag</legend>
 
                     <label for="latitude">Latitude:</label>
-                    <input type="text" id="latitude" name="latitude" placeholder="Coming Soon" pattern="^[0-9]*$" required>
+                    <input type="text" id="latitude" name="latitude" placeholder="Coming Soon" pattern="^[0-9.]*$" required > <!-- disabled? -->
 
                     <label for="longitude">Longitude:</label>
-                    <input type="text" id="longitude" name="longitude" placeholder="Coming Soon" pattern="^[0-9]*$" required>
+                    <input type="text" id="longitude" name="longitude" placeholder="Coming Soon" pattern="^[0-9.]*$" required > <!-- disabled? -->
 
                     <label for="name">Name:</label>
                     <input type="text" id="name" name="name" placeholder="e.g. Berlin Mitte" pattern="[A-Za-z]{0,10}" required>
@@ -63,7 +63,12 @@
                     <legend>Search</legend>
 
                     <label for="nameSearch">Search term or keywords:</label>
-                    <input type="text" id="nameSearch" name="nameSearch">                                     
+                    <input type="text" id="nameSearch" placeholder="e.g. Frankfurt Main Station" name="nameSearch">
+
+                     <!-- The Values will probably be made available through the gps later? -->
+                    <input type="hidden" id="current_longitude" name="current_longitude" value="Not_Available_Yet">
+                    <input type="hidden" id="current_latitude" name="current_latitude" value="Not_Available_Yet">
+                
 
                     <input type="submit" value="Search">
                 </fieldset>
