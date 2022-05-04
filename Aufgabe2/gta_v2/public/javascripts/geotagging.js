@@ -63,7 +63,7 @@ class LocationHelper {
  * A class to help using the MapQuest map service.
  */
 class MapManager {
-    #apiKey = '';
+    #apiKey = 'y2BrdV0W0lRLeBlOVAz13NCGkvNSYzEC';
 
     /**
      * Create a new MapManager instance.
@@ -103,6 +103,7 @@ class MapManager {
  * It is called once the page has been fully loaded.
  */
 // ... your code here ...
+
 
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
