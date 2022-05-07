@@ -14,7 +14,7 @@ console.log("The geoTagging script is going to start...");
  */
 class LocationHelper {
     // Location values for latitude and longitude are private properties to protect them from changes.
-    #latitude = '324';
+    #latitude = '';
 
     /**
      * Getter method allows read access to privat location property.
@@ -23,7 +23,7 @@ class LocationHelper {
         return this.#latitude;
     }
 
-    #longitude = '3245';
+    #longitude = '';
 
     get longitude() {
         return this.#longitude;
@@ -107,11 +107,11 @@ class MapManager {
  */
 // ... your code here ...
 
-let x = function updateLocation() {
-    LocationHelper.findLocation(writeCoordinates);
+let x = function writeCoordinates() {
+    LocationHelper.findLocation(updateLocation);
 }()
 
-function writeCoordinates(helper) {
+function updateLocation(helper) {
     const latitude = document.getElementById("latitude");
     const longitude = document.getElementById("longitude");
     const discovery_latitude = document.getElementById("current_latitude")
