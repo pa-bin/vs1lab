@@ -36,6 +36,7 @@ class LocationHelper {
      * @param {*} callback a function that will be called with a LocationHelper instance as parameter, that has the current location details
      */
     static findLocation(callback) {
+        console.log("Testsdsdsd");
         const geoLocationApi = navigator.geolocation;
 
         if (!geoLocationApi) {
@@ -57,6 +58,7 @@ class LocationHelper {
             alert(error.message)
         });
     }
+
 }
 
 /**
@@ -69,8 +71,9 @@ class MapManager {
      * Create a new MapManager instance.
      * @param {string} apiKey Your MapQuest API Key
      */
+
     constructor(apiKey) {
-        this.#apiKey = apiKey;
+        this.#apiKey = 'y2BrdV0W0lRLeBlOVAz13NCGkvNSYzEC';
     }
 
     /**
@@ -104,13 +107,29 @@ class MapManager {
  */
 // ... your code here ...
 
-document.onload = function updateLocation() {
-    findLocation(writeCoordinates);
-    return updateLocation;
+let x = function updateLocation() {
+    LocationHelper.findLocation(writeCoordinates);
+}()
+
+function writeCoordinates(helper) {
+    const latitude = document.getElementById("latitude");
+    const longitude = document.getElementById("longitude");
+    const discovery_latitude = document.getElementById("current_latitude")
+    const discovery_longitude = document.getElementById("current_longitude")
+
+    const map = document.getElementById("mapView");
+
+    const obj = new MapManager;
+    map.src = obj.getMapUrl(helper.latitude, helper.longitude);
+
+    latitude.value = helper.latitude;
+    longitude.value = helper.longitude;
+
+    discovery_latitude.value = helper.latitude;
+    discovery_longitude.value = helper.longitude;
+
 }
-window.onload = function writeCoordinates() {
-    document.getElementById("longitude").value =123;
-}
+
 
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
