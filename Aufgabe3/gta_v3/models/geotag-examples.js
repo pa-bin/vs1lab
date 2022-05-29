@@ -30,6 +30,8 @@ class GeoTagExamples {
             ['Building K', 49.013190, 8.392090, '#campus'],
         ];
     }
+
+    static create
 }
 
 module.exports = GeoTagExamples;

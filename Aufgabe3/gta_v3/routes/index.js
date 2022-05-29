@@ -30,7 +30,9 @@ const GeoTag = require('../models/geotag');
  */
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
-
+var store = new GeoTagStore();
+const Examples = require('../models/geotag-examples');
+const InMemoryGeoTagStore = require('../models/geotag-store');
 /**
  * Route '/' for HTTP 'GET' requests.
  * (http://expressjs.com/de/4x/api.html#app.get.method)
@@ -42,7 +44,18 @@ const GeoTagStore = require('../models/geotag-store');
 
 // TODO: extend the following route example if necessary
 router.get('/', (req, res) => {
-  res.render('index', { taglist: [] })
+  if(store.getGeoTags() == ''){
+  Examples.tagList.forEach(function(Examples) {
+    let tag=new GeoTag(Examples[0],Examples[1],Examples[2],Examples[3]);
+    store.addGeoTag(tag);
+    
+  })
+}
+  //console.log(store);
+  res.render('index', { 
+    taglist: store.getGeoTags(),
+    tags: JSON.stringify(store.getGeoTags())
+  })
 });
 
 /**
@@ -61,7 +74,22 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
-
+router.post('/tagging', (req, res) => {
+  let body =req.body;
+  
+  let tag = new GeoTag(body.name, body.latitude, body.longitude, body.hashtag);
+  
+  store.addGeoTag(tag);
+  console.log(store);
+  
+  
+  res.render('tagging', { 
+    taglist: 
+    store.getGeoTags(),
+    tags: JSON.stringify(store.getGeoTags())
+    //store.searchInRadius(body.latitude, body.longitude, 1000000),
+  })
+});
 /**
  * Route '/discovery' for HTTP 'POST' requests.
  * (http://expressjs.com/de/4x/api.html#app.post.method)
@@ -79,5 +107,24 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.post('/discovery', (req, res) => {
+  let body =req.body;
 
+  console.log(body.current_latitude);
+  if(body.nameSearch.length>0){
+    res.render('discovery', { 
+      taglist: store.searchNearbyGeoTags(body.nameSearch),
+      tags: JSON.stringify(store.searchNearbyGeoTags(body.nameSearch))
+    })
+  }else{
+    res.render('discovery', { 
+      taglist: store.getNearbyGeoTags(body.current_latitude, body.current_longitude, 0.01),
+      tags: JSON.stringify(store.getNearbyGeoTags(body.current_latitude, body.current_longitude, 0.01))
+    })
+  }
+});
+
+router.get('/error', (req, res) => {
+  res.render('error', { taglist: [] })
+});
 module.exports = router;

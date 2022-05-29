@@ -57,3 +57,25 @@ class LocationHelper {
         });
     }
 }
+let x = function writeCoordinates() {
+    LocationHelper.findLocation(updateLocation);
+}()
+
+function updateLocation(helper) {
+    const latitude = document.getElementById("latitude");
+    const longitude = document.getElementById("longitude");
+    const discovery_latitude = document.getElementById("current_latitude")
+    const discovery_longitude = document.getElementById("current_longitude")
+
+    const map = document.getElementById("mapView");
+
+    const obj = new MapManager;
+    map.src = obj.getMapUrl(helper.latitude, helper.longitude);
+
+    latitude.value = helper.latitude;
+    longitude.value = helper.longitude;
+
+    discovery_latitude.value = helper.latitude;
+    discovery_longitude.value = helper.longitude;
+
+}
