@@ -29,6 +29,7 @@
             console.log("No API key provided.");
             return "images/mapview.jpg";
         }
+<<<<<<< HEAD
         
         let tagList = `${latitude},${longitude}\|marker-FF0000`;
         //tagList += tags.reduce((acc, tag) => `${acc}|${tag.name},${tag.location.latitude},${tag.location.longitude}`, "")
@@ -44,9 +45,21 @@
         }
         
         const mapQuestUrl = `https://www.mapquestapi.com/staticmap/v5/map?locations=${tagList}&zoom=${zoom}&center=${latitude},${longitude}&size=1095,953&key=${this.#apiKey}`;
+=======
+
+        let tagList = `You,${latitude},${longitude}`;
+        tagList += tags.reduce((acc, tag) => `${acc}|${tag.name},${tag.latitude},${tag.longitude}`, "");
+
+        const mapQuestUrl = `https://www.mapquestapi.com/staticmap/v4/getmap?key=${this.#apiKey}&size=600,400&zoom=${zoom}&center=${latitude},${longitude}&pois=${tagList}`;
+>>>>>>> a56b114ac2d126f0fe847ed2337b485d26515918
         console.log("Generated MapQuest URL:", mapQuestUrl);
 
 
         return mapQuestUrl;
     }
+<<<<<<< HEAD
 }
+=======
+}
+
+>>>>>>> a56b114ac2d126f0fe847ed2337b485d26515918

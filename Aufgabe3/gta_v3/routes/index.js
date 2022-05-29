@@ -31,8 +31,15 @@ const GeoTag = require('../models/geotag');
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
 var store = new GeoTagStore();
+<<<<<<< HEAD
 const Examples = require('../models/geotag-examples');
 const InMemoryGeoTagStore = require('../models/geotag-store');
+=======
+
+const Examples = require('../models/geotag-examples');
+const InMemoryGeoTagStore = require('../models/geotag-store');
+
+>>>>>>> a56b114ac2d126f0fe847ed2337b485d26515918
 /**
  * Route '/' for HTTP 'GET' requests.
  * (http://expressjs.com/de/4x/api.html#app.get.method)
@@ -51,7 +58,10 @@ router.get('/', (req, res) => {
     
   })
 }
+<<<<<<< HEAD
   //console.log(store);
+=======
+>>>>>>> a56b114ac2d126f0fe847ed2337b485d26515918
   res.render('index', { 
     taglist: store.getGeoTags(),
     tags: JSON.stringify(store.getGeoTags())
@@ -87,7 +97,10 @@ router.post('/tagging', (req, res) => {
     taglist: 
     store.getGeoTags(),
     tags: JSON.stringify(store.getGeoTags())
+<<<<<<< HEAD
     //store.searchInRadius(body.latitude, body.longitude, 1000000),
+=======
+>>>>>>> a56b114ac2d126f0fe847ed2337b485d26515918
   })
 });
 /**
@@ -109,6 +122,27 @@ router.post('/tagging', (req, res) => {
 // TODO: ... your code here ...
 router.post('/discovery', (req, res) => {
   let body =req.body;
+<<<<<<< HEAD
+=======
+
+  console.log(body.latitudeSearch);
+  if(body.searchSearch.length>0){
+    res.render('discovery', { 
+      taglist: store.searchString(body.searchSearch),
+      tags: JSON.stringify(store.searchString(body.searchSearch))
+    })
+  }else{
+    res.render('discovery', { 
+      taglist: store.searchInRadius(body.latitudeSearch, body.longitudeSearch, 0.01),
+      tags: JSON.stringify(store.searchInRadius(body.latitudeSearch, body.longitudeSearch, 0.01))
+    })
+  }
+});
+
+router.get('/error', (req, res) => {
+  res.render('error', { taglist: [] })
+});
+>>>>>>> a56b114ac2d126f0fe847ed2337b485d26515918
 
   console.log(body.current_latitude);
   if(body.nameSearch.length>0){
