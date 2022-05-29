@@ -26,7 +26,51 @@
 class InMemoryGeoTagStore{
 
     // TODO: ... your code here ...
+    constructor() {
+        this.geotags = [];
+    }
 
+    getGeoTags() {
+        return this.geotags;
+    }
+
+    addGeoTag(tag) {
+        this.geotags.push(tag);
+    }
+
+    removeGeoTag(tag) {
+        const index = this.geotags.indexOf(tag);
+        if (index > -1) {
+            this.geotags.splice(index, 1);
+        }
+    }
+
+
+    searchInRadius(lat, long, radius){
+        let tags = [];
+        for(let i = 0; i < this.geotags.length; i++){
+            let tag = this.geotags[i];
+            let latDiff = lat - tag.latitude;
+            let longDiff = long - tag.longitude;
+    
+            let distance = Math.sqrt(latDiff*latDiff + longDiff*longDiff);
+            if(distance < radius)
+                tags.push(tag);
+        }
+        return tags;
+    }
+
+    searchString( searchString){
+        let tags = [];
+        for(let i = 0; i < this.geotags.length; i++){
+            if(searchString==this.geotags[i].name){
+                tags.push(this.geotags[i]);
+            }else if(searchString==this.geotags[i].hashtag){
+                tags.push(this.geotags[i]);
+            }      
+        }
+        return tags;
+    }
 }
 
 module.exports = InMemoryGeoTagStore

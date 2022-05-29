@@ -56,4 +56,30 @@ class LocationHelper {
             alert(error.message)
         });
     }
+
+    static updateLocation(){
+        console.log(document.cookie.split("=")[1]);
+        if(document.cookie.split("=")[1] == null || document.cookie.split("=")[1].match(/^ *$/) !== null){
+            LocationHelper.findLocation(callback => {
+                document.cookie = "location=" + callback.latitude + "_" + callback.longitude;
+                  document.getElementById("latitude").value = callback.latitude;
+                  document.getElementById("longitude").value = callback.longitude;
+                  document.getElementById("latitudeDiscoverySearch").value = callback.latitude;
+                  document.getElementById("longitudeDiscoverySearch").value = callback.longitude;
+                  document.getElementById("mapView").src = new MapManager("cbNCoIPEkmRLNU7bmHaJcRAejpzrjRiD").getMapUrl(callback.latitude, callback.longitude, JSON.parse(document.getElementById('map-image').dataset.tags), 16);
+              });
+        } else {
+            let loc = document.cookie.split("=")[1].split("_");
+            let lat = loc[0];
+            let lon = loc[1];
+            console.log("lat " + lat);
+            console.log("lon " + lon);
+            document.getElementById("latitude").value = lat;
+            document.getElementById("longitude").value = lon;
+            document.getElementById("latitudeDiscoverySearch").value = lat;
+            document.getElementById("longitudeDiscoverySearch").value = lon;
+            document.getElementById("mapView").src = new MapManager("cbNCoIPEkmRLNU7bmHaJcRAejpzrjRiD").getMapUrl(lat, lon, JSON.parse(document.getElementById('map-image').dataset.tags), 16);
+        }
+ 
+    }
 }
