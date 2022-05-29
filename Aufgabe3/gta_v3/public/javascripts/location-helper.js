@@ -52,6 +52,7 @@ class LocationHelper {
     }
 
 }
+
 let x = function writeCoordinates() {
     LocationHelper.findLocation(updateLocation);
 }()
