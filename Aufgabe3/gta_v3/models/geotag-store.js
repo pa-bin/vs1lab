@@ -24,6 +24,7 @@
  * - Keyword matching should include partial matches from name or hashtag fields. 
  */
 class InMemoryGeoTagStore{
+    #geotags = [];
 
     // TODO: ... your code here ...
     constructor() {
