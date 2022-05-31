@@ -30,7 +30,7 @@
             return "images/mapview.jpg";
         }
         
-        let tagList = `${latitude},${longitude}\|marker-FF0000`;
+        let tagList = `${latitude},${longitude}\|marker-000000`;
         if (tags !== undefined){
             for(let i = 0; i < tags.length; i++){
                 tagList += "\|\|"  + tags[i].latitude + "," + tags[i].longitude;
