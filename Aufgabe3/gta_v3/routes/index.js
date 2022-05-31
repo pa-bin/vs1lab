@@ -82,7 +82,7 @@ router.post('/tagging', (req, res) => {
   console.log(store);
   
   
-  res.render('tagging', { 
+  res.render('index', { 
     taglist: 
     store.getGeoTags(),
     tags: JSON.stringify(store.getGeoTags())
@@ -110,12 +110,12 @@ router.post('/discovery', (req, res) => {
 
   console.log(body.current_latitude);
   if(body.nameSearch.length>0){
-    res.render('discovery', { 
+    res.render('index', { 
       taglist: store.searchNearbyGeoTags(body.nameSearch),
       tags: JSON.stringify(store.searchNearbyGeoTags(body.nameSearch))
     })
   }else{
-    res.render('discovery', { 
+    res.render('index', { 
       taglist: store.getNearbyGeoTags(body.current_latitude, body.current_longitude, 0.01),
       tags: JSON.stringify(store.getNearbyGeoTags(body.current_latitude, body.current_longitude, 0.01))
     })
