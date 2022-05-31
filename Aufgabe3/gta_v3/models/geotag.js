@@ -12,20 +12,12 @@
 class GeoTag {
 
     // TODO: ... your code here ...
-<<<<<<< HEAD
-=======
-    //atribute hinzufügen was geotag haben könnte
->>>>>>> a56b114ac2d126f0fe847ed2337b485d26515918
     constructor(name, latitude, longitude, hashtag) {
         this.name = name;
         this.latitude = latitude;
         this.longitude = longitude;
         this.hashtag = hashtag;
-<<<<<<< HEAD
       } 
-=======
-      }
->>>>>>> a56b114ac2d126f0fe847ed2337b485d26515918
 }
 
 module.exports = GeoTag;

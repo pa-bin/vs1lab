@@ -23,7 +23,7 @@
  * - The proximity constrained is the same as for 'getNearbyGeoTags'.
  * - Keyword matching should include partial matches from name or hashtag fields. 
  */
-class InMemoryGeoTagStore{
+ class InMemoryGeoTagStore {
     #geotags = [];
 
     // TODO: ... your code here ...
@@ -47,11 +47,7 @@ class InMemoryGeoTagStore{
     }
 
 
-<<<<<<< HEAD
     getNearbyGeoTags(lat, long, radius){
-=======
-    searchInRadius(lat, long, radius){
->>>>>>> a56b114ac2d126f0fe847ed2337b485d26515918
         let tags = [];
         for(let i = 0; i < this.geotags.length; i++){
             let tag = this.geotags[i];
@@ -65,11 +61,7 @@ class InMemoryGeoTagStore{
         return tags;
     }
 
-<<<<<<< HEAD
     searchNearbyGeoTags( searchString){
-=======
-    searchString( searchString){
->>>>>>> a56b114ac2d126f0fe847ed2337b485d26515918
         let tags = [];
         for(let i = 0; i < this.geotags.length; i++){
             if(searchString==this.geotags[i].name){
