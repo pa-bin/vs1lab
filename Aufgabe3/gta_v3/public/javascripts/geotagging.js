@@ -12,8 +12,23 @@ console.log("The geoTagging script is going to start...");
  * A class to help using the HTML5 Geolocation API.
  */
 
+ function updateLocation(helper) {
+    const map = document.getElementById("mapView");
+    const obj = new MapManager;
+    if(document.getElementById("latitude").value === ""){
+        LocationHelper.findLocation(callback => {
+         console.log(callback.latitude);
+         document.getElementById("latitude").value = callback.latitude;
+         document.getElementById("longitude").value = callback.longitude;
+         document.getElementById("current_latitude").value = callback.latitude;
+         document.getElementById("current_longitude").value = callback.longitude;
+         map.src = obj.getMapUrl(callback.latitude, callback.longitude);
+         });
+    }
+    map.src = obj.getMapUrl(document.getElementById("latitude").value, document.getElementById("longitude").value);
+}
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
-    //writeCoordinates();
+    updateLocation();
 });
 

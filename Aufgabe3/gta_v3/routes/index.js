@@ -48,7 +48,6 @@ router.get('/', (req, res) => {
   Examples.tagList.forEach(function(Examples) {
     let tag=new GeoTag(Examples[0],Examples[1],Examples[2],Examples[3]);
     store.addGeoTag(tag);
-    
   })
 }
   res.render('index', { 
@@ -77,7 +76,7 @@ router.post('/tagging', (req, res) => {
   let body =req.body;
   
   let tag = new GeoTag(body.name, body.latitude, body.longitude, body.hashtag);
-  
+
   store.addGeoTag(tag);
   console.log(store);
   
