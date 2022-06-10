@@ -61,7 +61,7 @@
         return tags;
     }
 
-    searchNearbyGeoTags( searchString){
+    searchNearbyGeoTags(searchString){
         let tags = [];
         for(let i = 0; i < this.geotags.length; i++){
             if(searchString==this.geotags[i].name){
