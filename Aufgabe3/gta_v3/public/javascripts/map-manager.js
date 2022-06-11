@@ -31,8 +31,22 @@
         }
 
         let tagList = `You,${latitude},${longitude}`;
-        tagList += tags.reduce((acc, tag) => `${acc}|${tag.name},${tag.latitude},${tag.longitude}`, "");
 
+        const tagElement = document.getElementById("discoveryResults").getElementsByTagName("li");
+        let tagStrings = [];
+        if (tagElement.length > 0) {
+            tagList += "|";
+        }
+        for (var i = 0; i < tagElement.length; ++i) {
+            const listElementString = tagElement[i].innerHTML;
+            const name =  listElementString.split("(")[0].trim();
+            const lat = listElementString.split("(")[1].split(",")[0].trim();
+            const lon = listElementString.split("(")[1].split(",")[1].split(")")[0];
+            tagStrings.push(name + "," + lat + ","+ lon);
+        }
+        tagList += tagStrings.join("|");
+
+        //bit.do/YeetYeet
         const mapQuestUrl = `https://www.mapquestapi.com/staticmap/v4/getmap?key=${this.#apiKey}&size=600,400&zoom=${zoom}&center=${latitude},${longitude}&pois=${tagList}`;
         console.log("Generated MapQuest URL:", mapQuestUrl);
 

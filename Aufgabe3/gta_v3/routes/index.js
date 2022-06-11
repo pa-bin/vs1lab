@@ -48,6 +48,7 @@ router.get('/', (req, res) => {
   Examples.tagList.forEach(function(Examples) {
     let tag=new GeoTag(Examples[0],Examples[1],Examples[2],Examples[3]);
     store.addGeoTag(tag);
+    
   })
 }
   res.render('index', { 
@@ -76,7 +77,7 @@ router.post('/tagging', (req, res) => {
   let body =req.body;
   
   let tag = new GeoTag(body.name, body.latitude, body.longitude, body.hashtag);
-
+  
   store.addGeoTag(tag);
   console.log(store);
   
@@ -115,8 +116,8 @@ router.post('/discovery', (req, res) => {
     })
   }else{
     res.render('index', { 
-      taglist: store.getNearbyGeoTags(body.current_latitude, body.current_longitude, 0.01),
-      tags: JSON.stringify(store.getNearbyGeoTags(body.current_latitude, body.current_longitude, 0.01))
+      taglist: store.getNearbyGeoTags(body.current_latitude, body.current_longitude, 1),
+      tags: JSON.stringify(store.getNearbyGeoTags(body.current_latitude, body.current_longitude, 1))
     })
   }
 });
