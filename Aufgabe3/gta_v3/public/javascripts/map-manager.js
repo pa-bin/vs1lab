@@ -46,7 +46,7 @@
         }
         tagList += tagStrings.join("|");
 
-        //bit.do/YeetYeet
+        
         const mapQuestUrl = `https://www.mapquestapi.com/staticmap/v4/getmap?key=${this.#apiKey}&size=600,400&zoom=${zoom}&center=${latitude},${longitude}&pois=${tagList}`;
         console.log("Generated MapQuest URL:", mapQuestUrl);
 
