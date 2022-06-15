@@ -26,6 +26,9 @@ const GeoTag = require('../models/geotag');
  */
 // eslint-disable-next-line no-unused-vars
 const GeoTagStore = require('../models/geotag-store');
+var store = new GeoTagStore();
+const Examples = require('../models/geotag-examples');
+const InMemoryGeoTagStore = require('../models/geotag-store');
 
 // App routes (A3)
 
@@ -38,8 +41,18 @@ const GeoTagStore = require('../models/geotag-store');
  * As response, the ejs-template is rendered without geotag objects.
  */
 
-router.get('/', (req, res) => {
-  res.render('index', { taglist: [] })
+ router.get('/', (req, res) => {
+  if(store.getGeoTags() == ''){
+  Examples.tagList.forEach(function(Examples) {
+    let tag=new GeoTag(Examples[0],Examples[1],Examples[2],Examples[3]);
+    store.addGeoTag(tag);
+    
+  })
+}
+  res.render('index', { 
+    taglist: store.getGeoTags(),
+    tags: JSON.stringify(store.getGeoTags())
+  })
 });
 
 // API routes (A4)
@@ -57,7 +70,21 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
-
+router.post('/tagging', (req, res) => {
+  let body =req.body;
+  
+  let tag = new GeoTag(body.name, body.latitude, body.longitude, body.hashtag);
+  
+  store.addGeoTag(tag);
+  console.log(store);
+  
+  
+  res.render('index', { 
+    taglist: 
+    store.getGeoTags(),
+    tags: JSON.stringify(store.getGeoTags())
+  })
+});
 
 /**
  * Route '/api/geotags' for HTTP 'POST' requests.
@@ -71,7 +98,27 @@ router.get('/', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.post('/discovery', (req, res) => {
+  let body =req.body;
 
+  console.log(body.current_latitude);
+  if(body.nameSearch.length>0){
+    res.render('index', { 
+      taglist: store.searchNearbyGeoTags(body.nameSearch),
+      tags: JSON.stringify(store.searchNearbyGeoTags(body.nameSearch))
+    })
+  }else{
+    res.render('index', { 
+      taglist: store.getNearbyGeoTags(body.current_latitude, body.current_longitude, 1),
+      tags: JSON.stringify(store.getNearbyGeoTags(body.current_latitude, body.current_longitude, 1))
+    })
+  }
+});
+
+router.get('/error', (req, res) => {
+  res.render('error', { taglist: [] })
+});
+module.exports = router;
 
 /**
  * Route '/api/geotags/:id' for HTTP 'GET' requests.
