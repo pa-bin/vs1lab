@@ -55,21 +55,6 @@ const InMemoryGeoTagStore = require('../models/geotag-store');
   })
 });
 
-// API routes (A4)
-
-/**
- * Route '/api/geotags' for HTTP 'GET' requests.
- * (http://expressjs.com/de/4x/api.html#app.get.method)
- *
- * Requests contain the fields of the Discovery form as query.
- * (http://expressjs.com/de/4x/api.html#req.body)
- *
- * As a response, an array with Geo Tag objects is rendered as JSON.
- * If 'searchterm' is present, it will be filtered by search term.
- * If 'latitude' and 'longitude' are available, it will be further filtered based on radius.
- */
-
-// TODO: ... your code here ...
 router.post('/tagging', (req, res) => {
   let body =req.body;
   
@@ -86,18 +71,6 @@ router.post('/tagging', (req, res) => {
   })
 });
 
-/**
- * Route '/api/geotags' for HTTP 'POST' requests.
- * (http://expressjs.com/de/4x/api.html#app.post.method)
- *
- * Requests contain a GeoTag as JSON in the body.
- * (http://expressjs.com/de/4x/api.html#req.query)
- *
- * The URL of the new resource is returned in the header as a response.
- * The new resource is rendered as JSON in the response.
- */
-
-// TODO: ... your code here ...
 router.post('/discovery', (req, res) => {
   let body =req.body;
 
@@ -119,6 +92,35 @@ router.get('/error', (req, res) => {
   res.render('error', { taglist: [] })
 });
 module.exports = router;
+
+// API routes (A4)
+
+/**
+ * Route '/api/geotags' for HTTP 'GET' requests.
+ * (http://expressjs.com/de/4x/api.html#app.get.method)
+ *
+ * Requests contain the fields of the Discovery form as query.
+ * (http://expressjs.com/de/4x/api.html#req.body)
+ *
+ * As a response, an array with Geo Tag objects is rendered as JSON.
+ * If 'searchterm' is present, it will be filtered by search term.
+ * If 'latitude' and 'longitude' are available, it will be further filtered based on radius.
+ */
+
+// TODO: ... your code here ...
+
+/**
+ * Route '/api/geotags' for HTTP 'POST' requests.
+ * (http://expressjs.com/de/4x/api.html#app.post.method)
+ *
+ * Requests contain a GeoTag as JSON in the body.
+ * (http://expressjs.com/de/4x/api.html#req.query)
+ *
+ * The URL of the new resource is returned in the header as a response.
+ * The new resource is rendered as JSON in the response.
+ */
+
+// TODO: ... your code here ...
 
 /**
  * Route '/api/geotags/:id' for HTTP 'GET' requests.
