@@ -108,7 +108,9 @@ module.exports = router;
  */
 
 // TODO: ... your code here ...
-
+router.get('/api/geotags', (req, res) => {
+  return res.send();
+});
 /**
  * Route '/api/geotags' for HTTP 'POST' requests.
  * (http://expressjs.com/de/4x/api.html#app.post.method)
@@ -121,7 +123,9 @@ module.exports = router;
  */
 
 // TODO: ... your code here ...
-
+router.post('/api/geotags', (req, res) => {
+  return res.send();
+});
 /**
  * Route '/api/geotags/:id' for HTTP 'GET' requests.
  * (http://expressjs.com/de/4x/api.html#app.get.method)
@@ -133,7 +137,9 @@ module.exports = router;
  */
 
 // TODO: ... your code here ...
-
+router.get('/api/geotags/:id', (req, res) => {
+  return res.send();
+});
 
 /**
  * Route '/api/geotags/:id' for HTTP 'PUT' requests.
@@ -150,7 +156,9 @@ module.exports = router;
  */
 
 // TODO: ... your code here ...
-
+router.delete('/api/geotags/:id', (req, res) => {
+  return res.send();
+});
 
 /**
  * Route '/api/geotags/:id' for HTTP 'DELETE' requests.
