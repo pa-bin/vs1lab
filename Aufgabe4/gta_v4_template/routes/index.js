@@ -108,8 +108,27 @@ module.exports = router;
  */
 
 // TODO: ... your code here ...
-router.get('/api/geotags', (req, res) => {
-  return res.send();
+router.get('/api/geotags', function (req, res) {
+  let result;
+  let url = new URL(req.url, 'http://${req.headers.host}');
+  if (url.searchParams.has('searchterm') && url.searchParams.has('latitude') && url.searchParams.has('longitude')) {
+    let search = {
+      searchterm: url.searchParams.get('searchterm'),
+      latitude: url.searchParams.get('latitude'),
+      longitude: url.searchParams.get('longitude')
+    }
+    search.searchterm=search.searchterm.replace(/1/g,"#")//ersetzung für hashtag
+    result = store.searchNearbyGeoTags(search);
+    
+  }else{
+    result = store.getGeoTags();
+    
+  }
+  
+  
+  console.log(result);
+
+  res.json(result);
 });
 /**
  * Route '/api/geotags' for HTTP 'POST' requests.
@@ -123,8 +142,15 @@ router.get('/api/geotags', (req, res) => {
  */
 
 // TODO: ... your code here ...
-router.post('/api/geotags', (req, res) => {
-  return res.send();
+router.post('/api/geotags', function (req, res) {
+  let body = req.body;
+  console.log(req.body);
+  let tag = new GeoTag(body.name, body.latitude, body.longitude, body.hashtag);
+  store.addGeoTag(tag);
+  console.log(tag);
+  let response = store.getNearbyGeoTags(body.latitude, body.longitude, 1);
+  console.log(response);
+  res.json(response);
 });
 /**
  * Route '/api/geotags/:id' for HTTP 'GET' requests.
@@ -137,8 +163,15 @@ router.post('/api/geotags', (req, res) => {
  */
 
 // TODO: ... your code here ...
-router.get('/api/geotags/:id', (req, res) => {
-  return res.send();
+router.get('/api/geotags/:id', function (req, res) {
+  let tag = store.getById(req.params.id);
+  console.log(tag)
+  if (tag !== null) {
+    res.json(JSON.stringify(tag));
+  }
+  else {
+    res.status(404).send();
+  }
 });
 
 /**
@@ -156,7 +189,7 @@ router.get('/api/geotags/:id', (req, res) => {
  */
 
 // TODO: ... your code here ...
-router.delete('/api/geotags/:id', (req, res) => {
+router.put('/api/geotags/:id', (req, res) => {
   return res.send();
 });
 
@@ -172,5 +205,14 @@ router.delete('/api/geotags/:id', (req, res) => {
  */
 
 // TODO: ... your code here ...
+router.delete('/api/geotags/:id', function (req, res) {
+  let remove = req.params.id;
+  console.log(store.getById(remove));
+  res.json(store.getById(remove));
+  if (remove !== undefined) {
+    store.removeGeoTag(remove);
+  }
+});
+
 
 module.exports = router;

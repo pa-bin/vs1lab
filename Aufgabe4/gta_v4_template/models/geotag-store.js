@@ -62,14 +62,20 @@
     }
 
     searchNearbyGeoTags(searchString){
+        let nearTags=this.getNearbyGeoTags(searchString.latitude,searchString.longitude, 20);
         let tags = [];
-        for(let i = 0; i < this.geotags.length; i++){
-            if(searchString==this.geotags[i].name){
-                tags.push(this.geotags[i]);
-            }else if(searchString==this.geotags[i].hashtag){
-                tags.push(this.geotags[i]);
-            }      
-        }
+        
+            for(let i = 0; i < nearTags.length; i++){
+                let nameLow= nearTags[i].name.toLowerCase();
+                let hashtagLow= nearTags[i].hashtag.toLowerCase();
+                if(nameLow.includes(searchString.searchterm)||hashtagLow.includes(searchString.searchterm)){
+                    tags.push(nearTags[i]);
+                }     
+            }
+            if(tags.length<1){
+                tags=this.getNearbyGeoTags(searchString.latitude,searchString.longitude, 20);
+            }
+        
         return tags;
     }
 }
