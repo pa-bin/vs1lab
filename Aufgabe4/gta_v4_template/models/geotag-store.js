@@ -36,13 +36,20 @@
     }
 
     addGeoTag(tag) {
+        tag.id=this.geotags.length;
         this.geotags.push(tag);
     }
 
-    removeGeoTag(tag) {
-        const index = this.geotags.indexOf(tag);
-        if (index > -1) {
-            this.geotags.splice(index, 1);
+    removeGeoTag(id) {
+        if (id > -1) {
+            let length=this.geotags.length;
+            length=length-id-1;
+            console.log(length);
+            for(let i = length; i < this.geotags.length; i++){
+                this.geotags[i].id=i-1;
+            }
+            this.geotags.splice(id, 1);
+
         }
     }
 
@@ -64,7 +71,6 @@
     searchNearbyGeoTags(searchString){
         let nearTags=this.getNearbyGeoTags(searchString.latitude,searchString.longitude, 20);
         let tags = [];
-        
             for(let i = 0; i < nearTags.length; i++){
                 let nameLow= nearTags[i].name.toLowerCase();
                 let hashtagLow= nearTags[i].hashtag.toLowerCase();
@@ -75,8 +81,17 @@
             if(tags.length<1){
                 tags=this.getNearbyGeoTags(searchString.latitude,searchString.longitude, 20);
             }
-        
         return tags;
+    }
+
+    getId(id){
+        return this.geotags[id];
+    
+    }
+
+    overrideId(tag,id){
+        tag.id=id;
+        this.geotags[id]=tag;
     }
 }
 

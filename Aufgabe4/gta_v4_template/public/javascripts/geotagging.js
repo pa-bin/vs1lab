@@ -9,6 +9,7 @@
 console.log("The geoTagging script is going to start...");
 
 
+
 function updateLocation(helper) {
     const map = document.getElementById("mapView");
     const obj = new MapManager;
@@ -36,3 +37,15 @@ document.addEventListener("DOMContentLoaded", () => {
     updateLocation();
 });
 
+document.getElementById("tag-form").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    //muss noch was rein(glaub ich)
+
+});
+
+document.getElementById("discoveryFilterForm").addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    //muss noch was rein (glaub ich)
+});
