@@ -37,14 +37,14 @@ document.addEventListener("DOMContentLoaded", () => {
     updateLocation();
 });
 
-document.getElementById("tag-form").addEventListener("submit", async (event) => {
+document.getElementById("add-tag").addEventListener("submit", async (event) => {
     event.preventDefault();
 
-    //muss noch was rein(glaub ich)
+    //muss noch was rein (glaub ich)
 
 });
 
-document.getElementById("discoveryFilterForm").addEventListener("submit", async (event) => {
+document.getElementById("searchButton").addEventListener("submit", async (event) => {
     event.preventDefault();
 
     //muss noch was rein (glaub ich)
