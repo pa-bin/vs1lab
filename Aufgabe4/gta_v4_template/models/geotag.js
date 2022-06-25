@@ -9,6 +9,7 @@
  * A class representing geotags.
  * GeoTag objects should contain at least all fields of the tagging form.
  */
+ var idCounter = 0;
 class GeoTag {
 
     // TODO: ... your code here ...
@@ -17,7 +18,10 @@ class GeoTag {
         this.latitude = latitude;
         this.longitude = longitude;
         this.hashtag = hashtag;
+        this.id = idCounter;
+        idCounter++;
       } 
+
 }
 
 module.exports = GeoTag;

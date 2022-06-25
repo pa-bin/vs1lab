@@ -149,7 +149,7 @@ router.post('/api/geotags', function (req, res) {
   let tag = new GeoTag(body.name, body.latitude, body.longitude, body.hashtag);
   store.addGeoTag(tag);
   console.log(tag);
-  let response = store.getNearbyGeoTags(body.latitude, body.longitude, 1);
+  let response = store.getNearbyGeoTags(body.latitude, body.longitude, 20);
   console.log(response);
   res.json(response);
 });

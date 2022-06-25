@@ -23,6 +23,8 @@
  * - The proximity constrained is the same as for 'getNearbyGeoTags'.
  * - Keyword matching should include partial matches from name or hashtag fields. 
  */
+var idCounter = 0;
+
  class InMemoryGeoTagStore {
     #geotags = [];
 
@@ -36,8 +38,9 @@
     }
 
     addGeoTag(tag) {
-        tag.id=this.geotags.length;
+        tag.id=idCounter;
         this.geotags.push(tag);
+        idCounter++;
     }
 
     removeGeoTag(id) {
@@ -70,13 +73,12 @@
 
     searchNearbyGeoTags(searchString){
         let tags = [];
-        for(let i = 0; i < this.geotags.length; i++){
-            if(searchString==this.geotags[i].name){
+        for(let i = 0; i <  this.geotags.length; i++){
+            if(searchString==this.geotags[i].name || searchString==this.geotags[i].hashtag ){
                 tags.push(this.geotags[i]);
-            }else if(searchString==this.geotags[i].hashtag){
-                tags.push(this.geotags[i]);
-            }      
+            }    
         }
+
         return tags;
     }
 
