@@ -1,5 +1,7 @@
 // File origin: VS1LAB A2
 
+//const InMemoryGeoTagStore = require("../../models/geotag-store");
+
 /* eslint-disable no-unused-vars */
 
 // This script is executed when the browser loads index.html.
@@ -34,18 +36,134 @@ function updateLocation(helper) {
 
 // Wait for the page to fully load its DOM content, then call updateLocation
 document.addEventListener("DOMContentLoaded", () => {
-    updateLocation();
+    updateLocation()
+    console.log("test");
+    fetch("/api/geotags/", {
+        method: "GET",
+        headers:{
+            'Content-Type': 'application/json'
+        },
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
 });
 
-document.getElementById("add-tag").addEventListener("submit", async (event) => {
+
+document.getElementById("add-tag").addEventListener("click", async (event) => {
     event.preventDefault();
+    let currentName = document.getElementById("name").value;
+    let currentHashtag = document.getElementById("hashtag").value;
+    let currentLatitude = document.getElementById("latitude").value;
+    let currentLongitude = document.getElementById("longitude").value;
 
-    //muss noch was rein (glaub ich)
-
+    let values = {currentName, currentHashtag, currentLatitude, currentLongitude};
+    Test.addTagIntoList(values);
+    document.getElementById("name").value = "";
+    document.getElementById("hashtag").value = "";
 });
 
-document.getElementById("searchButton").addEventListener("submit", async (event) => {
-    event.preventDefault();
+var discoveryContainer = document.getElementById("discoveryResults");
+// function addTag(yikes){
+//     fetch(`/api/geotags/`,  {
+//         method: "POST",
+//         headers:{
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify({
+//             Name : 'Test'
+//         })    
+//     })
+//     .then(res => res.json())
+//     .then(data => console.log(data))
+//     var li = document.createElement("li");
+//     '/api/geotags',function (req, res) {
+//         let body = req.body;
+//         console.log("yikes");
+//         li.appendChild(document.createTextNode("Nice"));  //Body benutzen
+//     }
+//     discoveryContainer.appendChild(li);
+//     console.log("Test3");
+// }
+
+function renderMapRIGHTAWAY(){
+    var map = document.getElementById("mapView");
+    var discoveryList = document.getElementById("discoveryResults");
+    let tagStrings = [];
+    var tagElement = discoveryList.getElementsByTagName("li");
+    var zoom = 11;
+    let tagList = `You,${document.getElementById("latitude").value},${document.getElementById("longitude").value}`;
+    for (var i = 0; i < tagElement.length; ++i) {
+        const listElementString = tagElement[i].innerHTML;
+        const name =  listElementString.split("(")[0].trim();
+        const lat = listElementString.split("(")[1].split(",")[0].trim();
+        const lon = listElementString.split("(")[1].split(",")[1].split(")")[0];
+        tagStrings.push(name + "," + lat + ","+ lon);  
+    }
+
+    if (discoveryList.childNodes.length > 0) {
+        tagList += "|";
+    }
+    tagList += tagStrings.join("|");
+    var apiKey = 'y2BrdV0W0lRLeBlOVAz13NCGkvNSYzEC';
+    const mapQuestUrl = `https://www.mapquestapi.com/staticmap/v4/getmap?key=${apiKey}&size=600,400&zoom=${zoom}&center=${document.getElementById("latitude").value},${document.getElementById("longitude").value}&pois=${tagList}`;
+    console.log("Generated MapQuest URL:", mapQuestUrl);
+    map.src = mapQuestUrl;
+}
+
+class Test {    
+static async addTagIntoList(body){
+    var discoveryList = document.getElementById("discoveryResults");
+    var li = document.createElement("li");
+    li.appendChild(document.createTextNode(body.currentName+" ("+body.currentLatitude+", "+body.currentLongitude+") "+ body.currentHashtag))
+    discoveryList.appendChild(li);
+
+
+    fetch("/api/geotags/",  {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify({
+                name: body.currentName,
+                latitude: body.currentLatitude,
+                longitude: body.currentLongitude,
+                hashtag: body.currentHashtag
+            })
+        }).then(res => {
+            return res.json()
+        })
+        .then(data => console.log(data))
+
+        renderMapRIGHTAWAY();
+    }
+
+    
+
+}
+
+document.getElementById("searchButton").addEventListener("click", async (event) => {
+    event.preventDefault(); 
+    var lat = document.getElementById("latitude").value;
+    var long = document.getElementById("longitude").value;
+    var nameSearch = document.getElementById("nameSearch").value;
+    console.log(document.getElementById("nameSearch").value);
+    fetch(`/api/geotags?searchterm=${nameSearch}&latitude=${lat}&longitude=${long}`,  {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+          },
+    }).then(res => {
+        return res.json();
+    }).then(res => {
+        console.log(res);
+        var list = document.getElementById("discoveryResults");
+        list.innerHTML = "";
+        res.forEach(element=> {
+            var li = document.createElement("li")
+            li.innerHTML= element.name +" (" + element.latitude + "," + element.longitude + ") " + element.hashtag;            
+            list.appendChild(li);
+        })
+    })  
 
     //muss noch was rein (glaub ich)
 });

@@ -45,8 +45,7 @@ const InMemoryGeoTagStore = require('../models/geotag-store');
   if(store.getGeoTags() == ''){
   Examples.tagList.forEach(function(Examples) {
     let tag=new GeoTag(Examples[0],Examples[1],Examples[2],Examples[3]);
-    store.addGeoTag(tag);
-    
+    store.addGeoTag(tag);   
   })
 }
   res.render('index', { 
@@ -108,22 +107,27 @@ module.exports = router;
  */
 
 // TODO: ... your code here ...
-
 router.get('/api/geotags', function (req, res) {
   let result;
   let url = new URL(req.url, 'http://${req.headers.host}');
-  if (url.searchParams.has('searchterm') && url.searchParams.has('latitude') && url.searchParams.has('longitude')) {
+  console.log(url);
+  console.log(req.url);
+  console.log(url.searchParams.has("searchterm"));
+  if (url.searchParams.has('searchterm') && url.searchParams.get('searchterm')!= "" ) { //&& url.searchParams.has('latitude') && url.searchParams.has('longitude')
+    console.log("TEST!");
     let search = {
       searchterm: url.searchParams.get('searchterm'),
       latitude: url.searchParams.get('latitude'),
       longitude: url.searchParams.get('longitude')
     }
+    console.log(search);
+    console.log(search.searchterm);
     search.searchterm=search.searchterm.replace(/1/g,"#")//ersetzung für hashtag
-    result = store.searchNearbyGeoTags(search);
-    
+    console.log(search.searchterm);
+
+    result = store.searchNearbyGeoTags(search);   
   }else{
     result = store.getGeoTags();
-    
   }
   
   

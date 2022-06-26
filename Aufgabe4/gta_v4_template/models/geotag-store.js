@@ -23,8 +23,8 @@
  * - The proximity constrained is the same as for 'getNearbyGeoTags'.
  * - Keyword matching should include partial matches from name or hashtag fields. 
  */
-var idCounter = 0;
 
+var idCounter=0;
  class InMemoryGeoTagStore {
     #geotags = [];
 
@@ -38,21 +38,24 @@ var idCounter = 0;
     }
 
     addGeoTag(tag) {
+        //id ändern das sie eindeutig hochzählt
         tag.id=idCounter;
+        idCounter++;
         this.geotags.push(tag);
         idCounter++;
     }
 
     removeGeoTag(id) {
         if (id > -1) {
-            let length=this.geotags.length;
-            length=length-id-1;
-            console.log(length);
-            for(let i = length; i < this.geotags.length; i++){
-                this.geotags[i].id=i-1;
+            var pos = undefined;
+            for(var i = 0; i < this.geotags.length; i++)
+            {
+                if (this.geotags[i].id == id)
+                {
+                    pos = i;
+                }
             }
-            this.geotags.splice(id, 1);
-
+            this.geotags.splice(pos, 1);
         }
     }
 
@@ -73,8 +76,8 @@ var idCounter = 0;
 
     searchNearbyGeoTags(searchString){
         let tags = [];
-        for(let i = 0; i <  this.geotags.length; i++){
-            if(searchString==this.geotags[i].name || searchString==this.geotags[i].hashtag ){
+        for(let i = 0; i < this.geotags.length; i++){
+            if(searchString.searchterm==this.geotags[i].name || searchString.searchterm==this.geotags[i].hashtag){
                 tags.push(this.geotags[i]);
             }    
         }
@@ -83,13 +86,15 @@ var idCounter = 0;
     }
 
     getId(id){
-        return this.geotags[id];
-    
+        return this.geotags.find(element=>element.id==id);
     }
 
     overrideId(tag,id){
-        tag.id=id;
-        this.geotags[id]=tag;
+        var tagID = this.getId(id);
+        tagID.name = tag.name;
+        tagID.latitude = tag.latitude;
+        tagID.longitude = tag.longitude;
+        tagID.hashtag = tag.hashtag;
     }
 }
 
