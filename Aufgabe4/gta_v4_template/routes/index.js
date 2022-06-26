@@ -55,6 +55,7 @@ const InMemoryGeoTagStore = require('../models/geotag-store');
 });
 
 router.post('/tagging', (req, res) => {
+  console.log("TEST");
   let body =req.body;
   
   let tag = new GeoTag(body.name, body.latitude, body.longitude, body.hashtag);

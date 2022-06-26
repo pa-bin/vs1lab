@@ -42,7 +42,6 @@ var idCounter=0;
         tag.id=idCounter;
         idCounter++;
         this.geotags.push(tag);
-        idCounter++;
     }
 
     removeGeoTag(id) {

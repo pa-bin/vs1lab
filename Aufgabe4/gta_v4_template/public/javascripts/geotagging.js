@@ -17,7 +17,6 @@ function updateLocation(helper) {
     const obj = new MapManager;
     if(document.getElementById("latitude").value === "" || document.getElementById("longitude").value === ""){
         LocationHelper.findLocation(callback => {
-         //console.log(callback.latitude);
          document.getElementById("latitude").value = callback.latitude;
          document.getElementById("longitude").value = callback.longitude;
          document.getElementById("current_latitude").value = callback.latitude;
@@ -49,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
-document.getElementById("add-tag").addEventListener("click", async (event) => {
+document.getElementById("tag-form").addEventListener("submit", async (event) => {
     event.preventDefault();
     let currentName = document.getElementById("name").value;
     let currentHashtag = document.getElementById("hashtag").value;
@@ -57,33 +56,12 @@ document.getElementById("add-tag").addEventListener("click", async (event) => {
     let currentLongitude = document.getElementById("longitude").value;
 
     let values = {currentName, currentHashtag, currentLatitude, currentLongitude};
-    Test.addTagIntoList(values);
+    let response = Test.addTagIntoList(values);
     document.getElementById("name").value = "";
     document.getElementById("hashtag").value = "";
 });
 
 var discoveryContainer = document.getElementById("discoveryResults");
-// function addTag(yikes){
-//     fetch(`/api/geotags/`,  {
-//         method: "POST",
-//         headers:{
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify({
-//             Name : 'Test'
-//         })    
-//     })
-//     .then(res => res.json())
-//     .then(data => console.log(data))
-//     var li = document.createElement("li");
-//     '/api/geotags',function (req, res) {
-//         let body = req.body;
-//         console.log("yikes");
-//         li.appendChild(document.createTextNode("Nice"));  //Body benutzen
-//     }
-//     discoveryContainer.appendChild(li);
-//     console.log("Test3");
-// }
 
 function renderMapRIGHTAWAY(){
     var map = document.getElementById("mapView");
@@ -105,6 +83,7 @@ function renderMapRIGHTAWAY(){
     }
     tagList += tagStrings.join("|");
     var apiKey = 'y2BrdV0W0lRLeBlOVAz13NCGkvNSYzEC';
+    console.log(tagList);
     const mapQuestUrl = `https://www.mapquestapi.com/staticmap/v4/getmap?key=${apiKey}&size=600,400&zoom=${zoom}&center=${document.getElementById("latitude").value},${document.getElementById("longitude").value}&pois=${tagList}`;
     console.log("Generated MapQuest URL:", mapQuestUrl);
     map.src = mapQuestUrl;
@@ -116,9 +95,7 @@ static async addTagIntoList(body){
     var li = document.createElement("li");
     li.appendChild(document.createTextNode(body.currentName+" ("+body.currentLatitude+", "+body.currentLongitude+") "+ body.currentHashtag))
     discoveryList.appendChild(li);
-
-
-    fetch("/api/geotags/",  {
+    let response  = await fetch("/api/geotags/",  {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -133,15 +110,13 @@ static async addTagIntoList(body){
             return res.json()
         })
         .then(data => console.log(data))
-
         renderMapRIGHTAWAY();
+        let geotags = await response.json;
     }
-
-    
 
 }
 
-document.getElementById("searchButton").addEventListener("click", async (event) => {
+document.getElementById("discoveryFilterForm").addEventListener("submit", async (event) => {
     event.preventDefault(); 
     var lat = document.getElementById("latitude").value;
     var long = document.getElementById("longitude").value;
@@ -163,7 +138,9 @@ document.getElementById("searchButton").addEventListener("click", async (event) 
             li.innerHTML= element.name +" (" + element.latitude + "," + element.longitude + ") " + element.hashtag;            
             list.appendChild(li);
         })
-    })  
+        renderMapRIGHTAWAY();
+    }) 
+    
 
     //muss noch was rein (glaub ich)
 });
